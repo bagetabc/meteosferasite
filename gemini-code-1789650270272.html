@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МетеоСфера — Точный прогноз погоды</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .glass {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+        }
+        .glow {
+            box-shadow: 0 0 50px -10px rgba(14, 165, 233, 0.25);
+        }
+        
+        /* Custom Smooth Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .animate-pulse-glow {
+            animation: pulseGlow 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden">
+
+    <!-- Background Glow Effects with Animation -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-pulse-glow"></div>
+        <div class="absolute top-1/2 -right-40 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl animate-pulse-glow" style="animation-delay: 3s;"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="relative z-10 flex flex-col min-h-screen animate-fade-in">
+        
+        <!-- Top Announcement Notification Banner -->
+        <div class="bg-gradient-to-r from-blue-600/30 via-cyan-500/30 to-blue-600/30 border-b border-cyan-500/25 py-3 px-4 text-center text-xs sm:text-sm text-cyan-200 font-medium flex items-center justify-center space-x-2">
+            <span class="animate-bounce">🚀</span>
+            <span><b>Отличные новости!</b> Теперь вы можете официально оформить предзаказ на приложение в RuStore.</span>
+            <a href="https://www.rustore.ru/catalog/app/com.meteosfera.pogoda" target="_blank" class="underline hover:text-white font-bold ml-1 transition-colors">Сделать предзаказ &rarr;</a>
+        </div>
+
+        <!-- Header -->
+        <header class="max-w-6xl mx-auto w-full px-6 py-6 flex justify-between items-center">
+            <div class="flex items-center space-x-3 group cursor-pointer">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center glow transition-transform duration-300 group-hover:scale-110">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h10a4 4 0 004-4M7 10l5-5 5 5M12 15V3"></path>
+                    </svg>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-white transition-colors group-hover:text-cyan-400">МетеоСфера</span>
+            </div>
+            <div class="flex items-center space-x-3">
+                <a href="#web-app" class="hidden sm:inline-block px-4 py-2 rounded-xl glass text-slate-300 hover:text-white text-sm font-medium transition-all duration-300 hover:scale-105">
+                    Веб-версия
+                </a>
+                <a href="https://www.rustore.ru/catalog/app/com.meteosfera.pogoda" target="_blank" class="px-5 py-2.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 text-sm font-medium transition-all duration-300 hover:scale-105 active:scale-95">
+                    RuStore
+                </a>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <main class="flex-grow flex items-center justify-center max-w-6xl mx-auto px-6 py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Column: Info -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-400 text-xs font-semibold uppercase tracking-wider">
+                        <span class="animate-pulse">🔔</span>
+                        <span>Предзаказ Android &bull; Веб-версия для iPhone &bull; MIT License</span>
+                    </div>
+                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                        Погода нового поколения <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400">в вашем кармане</span>
+                    </h1>
+                    <p class="text-slate-400 text-lg max-w-xl mx-auto lg:mx-0">
+                        МетеоСфера объединяет высокую точность прогнозов, футуристичный интерфейс с эффектом матового стекла и скорость работы. Доступно в RuStore для Android и в виде удобной веб-версии для любых устройств. Открытый исходный код под лицензией MIT.
+                    </p>
+
+                    <!-- Buttons Block -->
+                    <div class="flex flex-col gap-4 pt-2">
+                        <div class="flex flex-col sm:flex-row items-center gap-3.5 w-full">
+                            <a href="https://www.rustore.ru/catalog/app/com.meteosfera.pogoda" target="_blank" class="w-full sm:w-1/3 px-5 py-4 rounded-2xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-semibold shadow-lg shadow-cyan-500/25 transition-all duration-300 hover:scale-105 active:scale-95 text-center text-sm">
+                                📱 Предзаказ в RuStore
+                            </a>
+                            <a href="#" id="web-app" class="w-full sm:w-1/3 px-5 py-4 rounded-2xl glass hover:bg-slate-800/80 text-cyan-400 font-semibold transition-all duration-300 hover:scale-105 active:scale-95 text-center border border-cyan-500/30 text-sm">
+                                🌐 Веб-версия
+                            </a>
+                            <a href="https://github.com/bagetabc/111" target="_blank" class="w-full sm:w-1/3 px-5 py-4 rounded-2xl glass hover:bg-slate-800/80 text-slate-200 font-semibold transition-all duration-300 hover:scale-105 active:scale-95 text-center border border-slate-700/50 text-sm">
+                                💻 GitHub
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- iPhone & PWA Notice Box -->
+                    <div class="glass p-4 rounded-2xl border border-slate-800 text-left space-y-2 text-xs text-slate-300">
+                        <div class="font-semibold text-cyan-400 flex items-center space-x-1.5">
+                            <span class="text-base">🍏</span>
+                            <span>Как установить на iPhone (iOS):</span>
+                        </div>
+                        <p class="text-slate-400 leading-relaxed">
+                            В магазинах приложений iOS этого приложения нет, но вы можете использовать веб-версию. Откройте её в браузере <b>Safari</b>, нажмите кнопку <b>«Поделиться»</b> (квадрат со стрелкой) внизу экрана и выберите пункт <b>«На экран «Домой»»</b>. Приложение установится как иконка на рабочий стол.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Glassmorphism Weather Widget Preview with Float Animation -->
+                <div class="lg:col-span-5 flex justify-center">
+                    <div class="w-full max-w-sm glass rounded-3xl p-6 glow space-y-6 relative overflow-hidden animate-float">
+                        <!-- Card Header -->
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h2 class="text-2xl font-bold text-white">Москва</h2>
+                                <p class="text-slate-400 text-sm">Сегодня, 17 сентября</p>
+                            </div>
+                            <span class="text-3xl transition-transform duration-500 hover:rotate-12 cursor-pointer">⛅</span>
+                        </div>
+                        
+                        <!-- Temperature -->
+                        <div class="py-4 flex items-baseline space-x-2">
+                            <span class="text-6xl font-black text-white">+18°</span>
+                            <span class="text-cyan-400 font-medium">Малооблачно</span>
+                        </div>
+
+                        <!-- Metrics Grid -->
+                        <div class="grid grid-cols-2 gap-3 pt-2">
+                            <div class="bg-slate-900/40 rounded-2xl p-3 border border-slate-800/60 transition-colors hover:border-cyan-500/30">
+                                <span class="text-slate-400 text-xs block">Влажность</span>
+                                <span class="text-lg font-bold text-white">64%</span>
+                            </div>
+                            <div class="bg-slate-900/40 rounded-2xl p-3 border border-slate-800/60 transition-colors hover:border-cyan-500/30">
+                                <span class="text-slate-400 text-xs block">Ветер</span>
+                                <span class="text-lg font-bold text-white">4.2 м/с</span>
+                            </div>
+                        </div>
+
+                        <!-- Decorative glow inside widget -->
+                        <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl"></div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="max-w-6xl mx-auto w-full px-6 py-6 border-t border-slate-900/80 text-center text-slate-500 text-xs space-y-1">
+            <p>&copy; 2026 МетеоСфера (com.meteosfera.pogoda). Все права защищены.</p>
+            <p>Проект распространяется под открытой 
+                <button onclick="openLicenseModal()" class="text-cyan-400 hover:underline font-medium cursor-pointer">лицензией MIT</button>.
+            </p>
+        </footer>
+
+    </div>
+
+    <!-- MIT License Modal Popup -->
+    <div id="licenseModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+        <div class="glass w-full max-w-lg rounded-3xl p-6 md:p-8 shadow-2xl border border-cyan-500/30 relative space-y-4 transform scale-95 transition-transform duration-300" id="modalContent">
+            
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="text-lg font-bold text-white flex items-center space-x-2">
+                    <span>📜</span>
+                    <span>Лицензия MIT (MIT License)</span>
+                </h3>
+                <button onclick="closeLicenseModal()" class="text-slate-400 hover:text-white text-xl font-bold px-2 py-1 rounded-lg hover:bg-slate-800/50 transition-colors">&times;</button>
+            </div>
+
+            <div class="text-xs sm:text-sm text-slate-300 space-y-3 max-h-[60vh] overflow-y-auto pr-2 text-left font-mono leading-relaxed">
+                <p>Copyright (c) 2026 МетеоСфера (com.meteosfera.pogoda)</p>
+                <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+                <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+                <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+            </div>
+
+            <div class="pt-2 flex justify-end">
+                <button onclick="closeLicenseModal()" class="px-5 py-2.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 font-semibold text-sm transition-all">
+                    Закрыть
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal JavaScript Script -->
+    <script>
+        const modal = document.getElementById('licenseModal');
+        const modalContent = document.getElementById('modalContent');
+
+        function openLicenseModal() {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeLicenseModal() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Close on backdrop click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeLicenseModal();
+            }
+        });
+    </script>
+
+</body>
+</html>
