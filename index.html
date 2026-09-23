@@ -32,6 +32,14 @@
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
+
+        /* Полное скрытие стандартного курсора на ПК в пользу кастомного */
+        @media (pointer: fine) {
+            body, a, button, input, .cursor-pointer {
+                cursor: none !important;
+            }
+        }
+
         .glass {
             background: rgba(15, 23, 42, 0.65);
             backdrop-filter: blur(16px);
@@ -78,11 +86,11 @@
                 transform: translate(-50%, -50%);
                 z-index: 99999;
                 box-shadow: 0 0 15px rgba(56, 189, 248, 0.9);
-                transition: transform 0.08s ease-out, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+                transition: transform 0.05s ease-out, width 0.2s ease, height 0.2s ease, background 0.2s ease;
             }
             .custom-cursor.hovered {
-                width: 32px;
-                height: 32px;
+                width: 34px;
+                height: 34px;
                 background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(56,189,248,0.8) 60%, transparent 100%);
                 box-shadow: 0 0 25px rgba(56, 189, 248, 1);
             }
@@ -344,11 +352,11 @@
 
                         <!-- Avatar Image (osnovatel.png) -->
                         <div class="w-24 h-24 mx-auto rounded-2xl overflow-hidden bg-slate-900 border border-cyan-500/30 shadow-xl shadow-cyan-500/20 flex items-center justify-center">
-                            <img src="osnovatel.png" alt="lilmopss" class="w-full h-full object-cover">
+                            <img src="osnovatel.png" alt="Lilmopss" class="w-full h-full object-cover">
                         </div>
 
                         <div class="space-y-2">
-                            <h3 class="text-2xl font-bold text-white">Михаил <span class="text-cyan-400 font-mono text-base font-normal">@lilmopss</span></h3>
+                            <h3 class="text-2xl font-bold text-white">Lilmopss</h3>
                             <div class="flex flex-wrap justify-center gap-2 pt-1">
                                 <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold">CEO</span>
                                 <span class="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold">Основатель</span>
