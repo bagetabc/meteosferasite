@@ -3,7 +3,7 @@
 <head>
     <meta name="yandex-verification" content="f68e9447d3b8199e" />
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>МетеоСфера — Точный прогноз погоды</title>
 
     <!-- Иконки и манифест -->
@@ -12,7 +12,7 @@
     <link rel="icon" href="logo.png" type="image/png">
 
     <!-- Open Graph / Социальные сети -->
-    <meta property="og:title" content="МетеоСфера — Теперь на Android!">
+    <meta property="og:title" content="МетеоСфера — Точный прогноз погоды">
     <meta property="og:description" content="Современное приложение погоды в RuStore для Android и удобная веб-версия для iOS.">
     <meta property="og:image" content="https://meteosfera.ru-message.ru/preview.png">
     <meta property="og:url" content="https://meteosfera.ru-message.ru">
@@ -25,6 +25,13 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+        body {
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
         .glass {
             background: rgba(15, 23, 42, 0.65);
             backdrop-filter: blur(16px);
@@ -44,20 +51,48 @@
         /* Плавные переходы для скролл-эффекта карточек */
         .spread-card {
             will-change: transform;
-            transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Стили для имитации экрана телефона */
+        /* Стили для имитации экрана телефона с защитой от сжатия */
         .phone-frame {
             border: 4px solid rgba(56, 189, 248, 0.25);
             border-radius: 2.5rem;
             background: #030712;
             overflow: hidden;
             box-shadow: 0 20px 50px -15px rgba(14, 165, 233, 0.3);
+            flex-shrink: 0;
+        }
+
+        /* Кастомный курсор для ПК */
+        @media (pointer: fine) {
+            .custom-cursor {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 22px;
+                height: 22px;
+                background: radial-gradient(circle, rgba(56,189,248,1) 0%, rgba(14,165,233,0.5) 60%, transparent 100%);
+                border-radius: 50%;
+                pointer-events: none;
+                transform: translate(-50%, -50%);
+                z-index: 99999;
+                box-shadow: 0 0 15px rgba(56, 189, 248, 0.9);
+                transition: transform 0.08s ease-out, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+            }
+            .custom-cursor.hovered {
+                width: 32px;
+                height: 32px;
+                background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(56,189,248,0.8) 60%, transparent 100%);
+                box-shadow: 0 0 25px rgba(56, 189, 248, 1);
+            }
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden">
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans selection:bg-cyan-500 selection:text-white">
+
+    <!-- Кастомный курсор (только для ПК) -->
+    <div class="custom-cursor hidden md:block" id="customCursor"></div>
 
     <!-- Background Glow Effects -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
@@ -76,7 +111,7 @@
         </div>
 
         <!-- Header -->
-        <header data-aos="fade-down" data-aos-duration="800" class="max-w-6xl mx-auto w-full px-6 py-6 flex justify-between items-center">
+        <header data-aos="fade-down" data-aos-duration="800" class="max-w-6xl mx-auto w-full px-4 sm:px-6 py-6 flex justify-between items-center">
             <div class="flex items-center space-x-3 group cursor-pointer">
                 <div class="w-10 h-10 rounded-2xl overflow-hidden glow transition-transform duration-300 group-hover:scale-110 bg-slate-900 border border-cyan-500/30 flex items-center justify-center">
                     <img src="logo.png" alt="МетеоСфера Logo" class="w-full h-full object-cover">
@@ -87,7 +122,7 @@
                 <a href="https://web.meteosfera.ru-message.ru" target="_blank" class="hidden sm:inline-block px-4 py-2 rounded-xl glass text-slate-300 hover:text-white text-sm font-medium transition-all duration-300 hover:scale-105">
                     Веб-версия
                 </a>
-                <a href="https://www.rustore.ru/catalog/app/com.meteosfera.pogoda" target="_blank" class="px-5 py-2.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 text-sm font-medium transition-all duration-300 hover:scale-105 active:scale-95 flex items-center space-x-2">
+                <a href="https://www.rustore.ru/catalog/app/com.meteosfera.pogoda" target="_blank" class="px-4 sm:px-5 py-2.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 text-sm font-medium transition-all duration-300 hover:scale-105 active:scale-95 flex items-center space-x-2">
                     <img src="rustore-icon.png" alt="RuStore" class="w-4 h-4 object-contain">
                     <span>RuStore</span>
                 </a>
@@ -95,7 +130,7 @@
         </header>
 
         <!-- Hero Section -->
-        <main class="flex-grow max-w-6xl mx-auto px-6 py-8 flex flex-col justify-center space-y-24">
+        <main class="flex-grow max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col justify-center space-y-20 sm:space-y-24">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 
                 <!-- Left Column: Info -->
@@ -104,10 +139,10 @@
                         <span class="animate-pulse">🔔</span>
                         <span>На Андроид &bull; Веб-версия для iPhone &bull; Все права защищены</span>
                     </div>
-                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                    <h1 class="text-3xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
                         Погода нового поколения <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400">в вашем кармане</span>
                     </h1>
-                    <p class="text-slate-400 text-lg max-w-xl mx-auto lg:mx-0">
+                    <p class="text-slate-400 text-base sm:text-lg max-w-xl mx-auto lg:mx-0">
                         МетеоСфера объединяет высокую точность прогнозов, футуристичный интерфейс с эффектом матового стекла и скорость работы. Доступно в RuStore для Android и в виде удобной веб-версии для любых устройств.
                     </p>
 
@@ -179,9 +214,9 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                     
                     <!-- Левый блок: iPhone (iOS) -->
-                    <div class="glass p-8 rounded-3xl border border-cyan-500/25 space-y-6 flex flex-col sm:flex-row items-center gap-6" data-aos="fade-right" data-aos-duration="900">
+                    <div class="glass p-6 sm:p-8 rounded-3xl border border-cyan-500/25 space-y-6 flex flex-col sm:flex-row items-center gap-6" data-aos="fade-right" data-aos-duration="900">
                         <!-- Телефон-мокап iOS -->
-                        <div class="w-40 sm:w-48 flex-shrink-0 phone-frame p-3 space-y-3">
+                        <div class="w-40 sm:w-48 phone-frame p-3 space-y-3">
                             <div class="flex justify-between items-center text-[10px] text-slate-400 px-1">
                                 <span>9:41</span>
                                 <div class="w-3 h-3 rounded-full bg-cyan-500/30"></div>
@@ -220,9 +255,9 @@
                     </div>
 
                     <!-- Правый блок: Android (RuStore) -->
-                    <div class="glass p-8 rounded-3xl border border-cyan-500/25 space-y-6 flex flex-col sm:flex-row items-center gap-6" data-aos="fade-left" data-aos-duration="900">
+                    <div class="glass p-6 sm:p-8 rounded-3xl border border-cyan-500/25 space-y-6 flex flex-col sm:flex-row items-center gap-6" data-aos="fade-left" data-aos-duration="900">
                         <!-- Телефон-мокап Android -->
-                        <div class="w-40 sm:w-48 flex-shrink-0 phone-frame p-3 space-y-3">
+                        <div class="w-40 sm:w-48 phone-frame p-3 space-y-3">
                             <div class="flex justify-between items-center text-[10px] text-slate-400 px-1">
                                 <span>12:00</span>
                                 <div class="w-2.5 h-2.5 rounded-full bg-blue-500/40"></div>
@@ -263,11 +298,11 @@
                 </div>
             </div>
 
-            <!-- SECTION: Фишки приложения (Раздвигаются при скролле) -->
+            <!-- SECTION: Фишки приложения (Плавное раздвижение при скролле) -->
             <div class="space-y-12">
                 <div class="text-center space-y-3" data-aos="fade-up" data-aos-duration="800">
                     <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Преимущества МетеоСферы</h2>
-                    <p class="text-slate-400 max-w-lg mx-auto text-sm sm:text-base">Крутите колесико мыши — карточки динамически раздвигаются и сдвигаются обратно.</p>
+                    <p class="text-slate-400 max-w-lg mx-auto text-sm sm:text-base">Крутите колесико мыши — карточки плавно раздвигаются и сдвигаются обратно.</p>
                 </div>
 
                 <!-- Контейнер с карточками для скролл-эффекта -->
@@ -302,8 +337,8 @@
                     <p class="text-slate-400 max-w-lg mx-auto text-sm sm:text-base">Автор идеи, архитектуры и разработки МетеоСферы.</p>
                 </div>
 
-                <div class="max-w-xl mx-auto" data-aos="flip-up" data-aos-duration="1000">
-                    <div class="glass p-8 rounded-3xl glow relative overflow-hidden border border-cyan-500/30 text-center space-y-6 transition hover:border-cyan-500/60 duration-300">
+                <div class="max-w-xl mx-auto px-2" data-aos="flip-up" data-aos-duration="1000">
+                    <div class="glass p-6 sm:p-8 rounded-3xl glow relative overflow-hidden border border-cyan-500/30 text-center space-y-6 transition hover:border-cyan-500/60 duration-300">
                         <!-- Decorative glow inside card -->
                         <div class="absolute -top-16 -left-16 w-48 h-48 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -313,7 +348,7 @@
                         </div>
 
                         <div class="space-y-2">
-                            <h3 class="text-2xl font-bold text-white">Lilmopss <span class="text-cyan-400 font-mono text-base font-normal">@lilmopss</span></h3>
+                            <h3 class="text-2xl font-bold text-white">Михаил <span class="text-cyan-400 font-mono text-base font-normal">@lilmopss</span></h3>
                             <div class="flex flex-wrap justify-center gap-2 pt-1">
                                 <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold">CEO</span>
                                 <span class="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold">Основатель</span>
@@ -328,7 +363,7 @@
                         <div class="pt-2">
                             <a href="https://t.me/lilmopss" target="_blank" class="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-sky-500/20 to-blue-500/20 hover:from-sky-500/30 hover:to-blue-500/30 border border-sky-500/40 text-sky-300 font-semibold transition-all duration-300 hover:scale-105 active:scale-95 text-sm shadow-lg shadow-sky-500/10">
                                 <img src="tg-icon.png" alt="Telegram" class="w-4 h-4 object-contain">
-                                <span>Связаться</span>
+                                <span>Связаться в Telegram (@lilmopss)</span>
                             </a>
                         </div>
                     </div>
@@ -338,7 +373,7 @@
         </main>
 
         <!-- Footer -->
-        <footer data-aos="fade-in" data-aos-duration="800" class="max-w-6xl mx-auto w-full px-6 py-6 border-t border-slate-900/80 text-center text-slate-500 text-xs space-y-1.5">
+        <footer data-aos="fade-in" data-aos-duration="800" class="max-w-6xl mx-auto w-full px-4 sm:px-6 py-6 border-t border-slate-900/80 text-center text-slate-500 text-xs space-y-1.5">
             <p>&copy; 2026 МетеоСфера (com.meteosfera.pogoda). Все права защищены.</p>
             <div class="flex justify-center space-x-4 pt-1">
                 <a href="https://t.me/meteosfera_app" target="_blank" class="text-sky-400 hover:underline transition-colors flex items-center space-x-1">
@@ -357,27 +392,42 @@
         AOS.init({
             once: true,
             offset: 80,
+            disable: 'mobile'
         });
 
-        // Скрипт для интерактивного раздвижения карточек при скролле колесиком мыши
+        // Логика кастомного курсора
+        const cursor = document.getElementById('customCursor');
+        if (cursor && window.matchMedia('(pointer: fine)').matches) {
+            window.addEventListener('mousemove', (e) => {
+                cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+            });
+
+            // Эффект увеличения при наведении на интерактивные элементы
+            const interactiveElements = document.querySelectorAll('a, button, input, .group');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+            });
+        }
+
+        // Скрипт для интерактивного плавного раздвижения карточек при скролле (только на десктопах)
         window.addEventListener('scroll', () => {
+            if (window.innerWidth < 768) return;
+            
             const container = document.getElementById('spread-container');
             if (!container) return;
             
             const rect = container.getBoundingClientRect();
             const windowHeight = window.innerHeight;
             
-            // Проверяем, находится ли блок в зоне видимости экрана
             if (rect.top < windowHeight && rect.bottom > 0) {
-                // Вычисляем процент прокрутки внутри блока (от 0 до 1)
                 let progress = (windowHeight - rect.top) / (windowHeight + rect.height);
-                progress = (progress - 0.35) * 2.2; // Настройка чувствительности
+                progress = (progress - 0.35) * 1.8;
                 progress = Math.max(0, Math.min(1, progress));
                 
                 const cards = container.querySelectorAll('.spread-card');
-                if (window.innerWidth >= 768 && cards.length === 3) {
-                    // На компьютерах: левая карточка едет влево, правая вправо, центр стоит на месте
-                    const distance = progress * 45; // Максимальный раздвиг в пикселях
+                if (cards.length === 3) {
+                    const distance = progress * 22;
                     cards[0].style.transform = `translateX(-${distance}px)`;
                     cards[2].style.transform = `translateX(${distance}px)`;
                 }
