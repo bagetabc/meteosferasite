@@ -46,6 +46,15 @@
             will-change: transform;
             transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
+        /* Стили для имитации экрана телефона */
+        .phone-frame {
+            border: 4px solid rgba(56, 189, 248, 0.25);
+            border-radius: 2.5rem;
+            background: #030712;
+            overflow: hidden;
+            box-shadow: 0 20px 50px -15px rgba(14, 165, 233, 0.3);
+        }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen font-sans selection:bg-cyan-500 selection:text-white overflow-x-hidden">
@@ -126,18 +135,6 @@
                             <span>Поддержать проект (DonationAlerts)</span>
                         </a>
                     </div>
-
-                    <!-- iPhone & PWA Notice Box -->
-                    <div class="glass p-4 rounded-2xl border border-slate-800 text-left space-y-2 text-xs text-slate-300">
-                        <div class="font-semibold text-cyan-400 flex items-center space-x-1.5">
-                            <span class="text-base">🍏</span>
-                            <span>Как установить на iPhone (iOS):</span>
-                        </div>
-                        <p class="text-slate-400 leading-relaxed">
-                            Откройте веб-версию в браузере <b>Safari</b>, нажмите кнопку <b>«Поделиться»</b> внизу экрана и выберите пункт <b>«На экран «Домой»»</b>.
-                        </p>
-                    </div>
-
                 </div>
 
                 <!-- Right Column: Animated Weather Widget Preview -->
@@ -172,6 +169,100 @@
 
             </div>
 
+            <!-- SECTION: Как установить (С телефонами по бокам) -->
+            <div class="space-y-12">
+                <div class="text-center space-y-3" data-aos="fade-up" data-aos-duration="800">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">Как установить МетеоСферу?</h2>
+                    <p class="text-slate-400 max-w-xl mx-auto text-sm sm:text-base">Выберите вашу мобильную платформу и начните пользоваться приложением за пару секунд.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    
+                    <!-- Левый блок: iPhone (iOS) -->
+                    <div class="glass p-8 rounded-3xl border border-cyan-500/25 space-y-6 flex flex-col sm:flex-row items-center gap-6" data-aos="fade-right" data-aos-duration="900">
+                        <!-- Телефон-мокап iOS -->
+                        <div class="w-40 sm:w-48 flex-shrink-0 phone-frame p-3 space-y-3">
+                            <div class="flex justify-between items-center text-[10px] text-slate-400 px-1">
+                                <span>9:41</span>
+                                <div class="w-3 h-3 rounded-full bg-cyan-500/30"></div>
+                            </div>
+                            <div class="bg-slate-900 rounded-2xl p-3 border border-slate-800 text-center space-y-2">
+                                <div class="w-10 h-10 mx-auto rounded-xl overflow-hidden bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center">
+                                    <img src="logo.png" alt="Icon" class="w-full h-full object-cover">
+                                </div>
+                                <span class="text-xs font-bold text-white block">МетеоСфера</span>
+                                <span class="text-[9px] text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded-full inline-block">Веб-приложение</span>
+                            </div>
+                            <div class="text-center text-[10px] text-slate-400 py-1 bg-slate-900/60 rounded-xl border border-slate-800">
+                                ⬆ Нажмите «Поделиться»
+                            </div>
+                        </div>
+
+                        <!-- Описание установки на iOS -->
+                        <div class="space-y-4 text-center sm:text-left">
+                            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/25 text-sky-400 text-xs font-semibold">
+                                <span>🍏</span>
+                                <span>Для владельцев iPhone и iPad</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">Установка на iOS</h3>
+                            <ol class="text-slate-300 text-sm space-y-2 text-left list-decimal list-inside">
+                                <li>Откройте веб-версию в браузере <b class="text-cyan-400">Safari</b>.</li>
+                                <li>Нажмите кнопку <b class="text-white">«Поделиться»</b> внизу панели управления.</li>
+                                <li>Выберите пункт <b class="text-white">«На экран «Домой»»</b>.</li>
+                            </ol>
+                            <div class="pt-2">
+                                <a href="https://web.meteosfera.ru-message.ru" target="_blank" class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-semibold text-xs transition">
+                                    <span>Открыть веб-версию</span>
+                                    <span>&rarr;</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Правый блок: Android (RuStore) -->
+                    <div class="glass p-8 rounded-3xl border border-cyan-500/25 space-y-6 flex flex-col sm:flex-row items-center gap-6" data-aos="fade-left" data-aos-duration="900">
+                        <!-- Телефон-мокап Android -->
+                        <div class="w-40 sm:w-48 flex-shrink-0 phone-frame p-3 space-y-3">
+                            <div class="flex justify-between items-center text-[10px] text-slate-400 px-1">
+                                <span>12:00</span>
+                                <div class="w-2.5 h-2.5 rounded-full bg-blue-500/40"></div>
+                            </div>
+                            <div class="bg-slate-900 rounded-2xl p-3 border border-slate-800 text-center space-y-2">
+                                <div class="w-10 h-10 mx-auto rounded-xl overflow-hidden bg-blue-500/10 border border-blue-500/30 flex items-center justify-center">
+                                    <img src="rustore-icon.png" alt="RuStore" class="w-6 h-6 object-contain">
+                                </div>
+                                <span class="text-xs font-bold text-white block">В RuStore</span>
+                                <span class="text-[9px] text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-full inline-block">Официально</span>
+                            </div>
+                            <div class="text-center text-[10px] text-white py-1.5 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-xl font-medium shadow">
+                                Установить
+                            </div>
+                        </div>
+
+                        <!-- Описание установки на Android -->
+                        <div class="space-y-4 text-center sm:text-left">
+                            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/25 text-blue-400 text-xs font-semibold">
+                                <span>🤖</span>
+                                <span>Для пользователей Android</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">Установка из RuStore</h3>
+                            <ul class="text-slate-300 text-sm space-y-2 text-left list-disc list-inside">
+                                <li>Перейдите по официальной ссылке в магазин <b class="text-blue-400">RuStore</b>.</li>
+                                <li>Нажмите кнопку <b class="text-white">«Установить»</b>.</li>
+                                <li>Пользуйтесь быстрым нативным приложением на вашем смартфоне!</li>
+                            </ul>
+                            <div class="pt-2">
+                                <a href="https://www.rustore.ru/catalog/app/com.meteosfera.pogoda" target="_blank" class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-semibold text-xs transition shadow-md shadow-cyan-500/20">
+                                    <img src="rustore-icon.png" alt="RuStore" class="w-3.5 h-3.5 object-contain">
+                                    <span>Скачать из RuStore</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
             <!-- SECTION: Фишки приложения (Раздвигаются при скролле) -->
             <div class="space-y-12">
                 <div class="text-center space-y-3" data-aos="fade-up" data-aos-duration="800">
@@ -190,7 +281,7 @@
 
                     <!-- Карточка 2 (остается по центру) -->
                     <div class="spread-card glass p-6 rounded-3xl space-y-4 border border-cyan-500/20 transition hover:border-cyan-500/50">
-                        <div class="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-2xl text-blue-400 border border-cyan-500/30">💎</div>
+                        <div class="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-2xl text-blue-400 border border-blue-500/30">💎</div>
                         <h3 class="text-xl font-bold text-white">Стиль Glassmorphism</h3>
                         <p class="text-slate-400 text-sm leading-relaxed">Эффект матового стекла, глубокие сине-черные темные тона и неоновые акценты радуют глаз.</p>
                     </div>
@@ -222,7 +313,7 @@
                         </div>
 
                         <div class="space-y-2">
-                            <h3 class="text-2xl font-bold text-white">LILMOPSS <span class="text-cyan-400 font-mono text-base font-normal">@lilmopss</span></h3>
+                            <h3 class="text-2xl font-bold text-white">Михаил <span class="text-cyan-400 font-mono text-base font-normal">@lilmopss</span></h3>
                             <div class="flex flex-wrap justify-center gap-2 pt-1">
                                 <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold">CEO</span>
                                 <span class="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold">Основатель</span>
