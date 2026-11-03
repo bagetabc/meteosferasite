@@ -24,13 +24,23 @@
     <!-- AOS (Animate On Scroll) Library CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+    <!-- Google Font: Plus Jakarta Sans / Google Sans style -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <style>
+        * {
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        }
         html {
             -webkit-text-size-adjust: 100%;
         }
         body {
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+            background-color: #f7efff;
+            color: #1d0c2b;
         }
 
         /* Полное скрытие стандартного курсора на ПК в пользу кастомного */
@@ -40,24 +50,52 @@
             }
         }
 
-        /* Material You Surface / Light Tonal Container Style */
-        .glass {
-            background: rgba(248, 245, 255, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(147, 51, 234, 0.12);
+        /* Material You M3 Surface Colors from Screenshot */
+        .m3-surface-container {
+            background-color: #eee0f9;
             border-radius: 2rem;
-            box-shadow: 0 10px 30px -10px rgba(147, 51, 234, 0.05);
+            transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
         }
-        .glow { box-shadow: 0 10px 40px -10px rgba(168, 85, 247, 0.2); }
-        
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.8; }
+        .m3-surface-low {
+            background-color: #f2e7fc;
+            border-radius: 2rem;
         }
-        .animate-pulse-glow {
-            animation: pulseGlow 6s ease-in-out infinite;
+        .m3-dark-container {
+            background-color: #2b1138;
+            color: #f6ecff;
+            border-radius: 2rem;
         }
+        .m3-pink-accent {
+            background-color: #ff8597;
+            color: #4a0013;
+        }
+        .m3-pink-accent:hover {
+            background-color: #ff6f85;
+        }
+
+        /* Scalloped Badge (Фигурный цветок Android 14 Material You M3) */
+        .m3-scallop-badge {
+            clip-path: polygon(
+                50% 0%, 63% 5%, 72% 14%, 82% 17%, 88% 28%, 97% 36%, 97% 48%, 98% 60%, 
+                91% 71%, 86% 83%, 75% 88%, 65% 96%, 50% 95%, 35% 96%, 25% 88%, 
+                14% 83%, 9% 71%, 2% 60%, 3% 48%, 3% 36%, 12% 28%, 18% 17%, 28% 14%, 37% 5%
+            );
+        }
+
+        /* Анимированные сферы Android 14 */
+        @keyframes floatSphere1 {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -40px) scale(1.08); }
+            66% { transform: translate(-25px, 25px) scale(0.96); }
+        }
+        @keyframes floatSphere2 {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(-40px, 30px) scale(1.05); }
+            66% { transform: translate(25px, -30px) scale(1.12); }
+        }
+
+        .m3-sphere-1 { animation: floatSphere1 14s ease-in-out infinite; }
+        .m3-sphere-2 { animation: floatSphere2 18s ease-in-out infinite; }
 
         /* Плавные переходы для скролл-эффекта карточек */
         .spread-card {
@@ -65,17 +103,17 @@
             transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Стили для имитации экрана телефона с защитой от сжатия */
+        /* Стили для имитации экрана телефона */
         .phone-frame {
-            border: 4px solid rgba(147, 51, 234, 0.2);
+            border: 4px solid #3b1d4a;
             border-radius: 2.5rem;
-            background: #faf5ff;
+            background: #f3e5ff;
             overflow: hidden;
-            box-shadow: 0 20px 40px -15px rgba(147, 51, 234, 0.15);
+            box-shadow: 0 20px 40px -10px rgba(43, 17, 56, 0.2);
             flex-shrink: 0;
         }
 
-        /* Кастомный курсор для ПК (Material You Light Violet Dot style) */
+        /* Кастомный курсор Material You M3 */
         @media (pointer: fine) {
             .custom-cursor {
                 position: fixed;
@@ -83,58 +121,58 @@
                 left: 0;
                 width: 18px;
                 height: 18px;
-                background: #9333ea;
+                background: #8e24aa;
                 border-radius: 50%;
                 pointer-events: none;
                 transform: translate(-50%, -50%);
                 z-index: 99999;
-                box-shadow: 0 0 12px rgba(147, 51, 234, 0.6);
+                box-shadow: 0 0 16px rgba(142, 36, 170, 0.5);
                 transition: transform 0.05s ease-out, width 0.2s ease, height 0.2s ease, background 0.2s ease, border-radius 0.2s ease;
             }
             .custom-cursor.hovered {
-                width: 36px;
-                height: 36px;
-                background: rgba(147, 51, 234, 0.15);
-                border: 2px solid #9333ea;
-                box-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
+                width: 38px;
+                height: 38px;
+                background: rgba(255, 133, 151, 0.4);
+                border: 2px solid #8e24aa;
+                box-shadow: 0 0 24px rgba(142, 36, 170, 0.3);
             }
         }
     </style>
 </head>
-<body class="bg-white text-slate-900 min-h-screen font-sans selection:bg-purple-600 selection:text-white">
+<body class="bg-[#f7efff] text-[#1d0c2b] min-h-screen selection:bg-[#8e24aa] selection:text-white relative">
 
     <!-- Кастомный курсор (только для ПК) -->
     <div class="custom-cursor hidden md:block" id="customCursor"></div>
 
-    <!-- Background Glow Effects -->
+    <!-- Android 14 Background Ambient Spheres -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div class="absolute -top-40 -left-40 w-96 h-96 bg-purple-200/60 rounded-full blur-3xl animate-pulse-glow"></div>
-        <div class="absolute top-1/2 -right-40 w-96 h-96 bg-fuchsia-200/60 rounded-full blur-3xl animate-pulse-glow" style="animation-delay: 3s;"></div>
+        <div class="m3-sphere-1 absolute -top-32 -left-32 w-[500px] h-[500px] bg-[#e1c5ff]/50 rounded-full blur-[100px]"></div>
+        <div class="m3-sphere-2 absolute top-1/2 -right-32 w-[550px] h-[550px] bg-[#fbcbe3]/45 rounded-full blur-[120px]"></div>
     </div>
 
     <!-- Main Container -->
     <div class="relative z-10 flex flex-col min-h-screen">
         
-        <!-- Top Announcement Notification Banner -->
-        <div data-aos="fade-down" data-aos-duration="600" class="bg-purple-100/80 border-b border-purple-200 py-3 px-4 text-center text-xs sm:text-sm text-purple-950 font-medium flex items-center justify-center space-x-2 backdrop-blur-md">
+        <!-- Top Announcement Banner (Material 3 Dynamic Tonal Pill) -->
+        <div data-aos="fade-down" data-aos-duration="600" class="bg-[#e8d5f9] border-b border-[#d8beee] py-3 px-4 text-center text-xs sm:text-sm text-[#2b1138] font-semibold flex items-center justify-center space-x-2">
             <span class="animate-bounce">👌</span>
             <span><b>Отличные новости!</b> Приложение в RuStore!</span>
-            <a href="https://www.rustore.ru/catalog/app/com.meteosfera.pogoda" target="_blank" class="underline hover:text-purple-700 font-bold ml-1 transition-colors">Скачать &rarr;</a>
+            <a href="https://www.rustore.ru/catalog/app/com.meteosfera.pogoda" target="_blank" class="underline hover:text-[#8e24aa] font-bold ml-1 transition-colors">Скачать &rarr;</a>
         </div>
 
         <!-- Header -->
         <header data-aos="fade-down" data-aos-duration="800" class="max-w-6xl mx-auto w-full px-4 sm:px-6 py-6 flex justify-between items-center">
             <div class="flex items-center space-x-3 group cursor-pointer">
-                <div class="w-11 h-11 rounded-2xl overflow-hidden glow transition-transform duration-300 group-hover:scale-105 bg-purple-50 border border-purple-200 flex items-center justify-center shadow-sm">
+                <div class="w-12 h-12 rounded-2xl overflow-hidden transition-transform duration-300 group-hover:scale-105 bg-[#eee0f9] border border-[#d8beee] flex items-center justify-center shadow-sm">
                     <img src="logo.png" alt="МетеоСфера Logo" class="w-full h-full object-cover">
                 </div>
-                <span class="text-xl font-bold tracking-tight text-slate-900 transition-colors group-hover:text-purple-700">МетеоСфера</span>
+                <span class="text-2xl font-black tracking-tight text-[#2b1138] transition-colors group-hover:text-[#8e24aa]">МетеоСфера</span>
             </div>
             <div class="flex items-center space-x-3">
-                <a href="https://web.meteosfera.ru-message.ru" target="_blank" class="hidden sm:inline-block px-4 py-2.5 rounded-full bg-purple-50 hover:bg-purple-100 text-purple-900 text-sm font-medium transition-all duration-300 border border-purple-200/60">
+                <a href="https://web.meteosfera.ru-message.ru" target="_blank" class="hidden sm:inline-block px-5 py-2.5 rounded-full bg-[#eee0f9] hover:bg-[#e4d2f3] text-[#2b1138] text-sm font-bold transition-all duration-300 border border-[#d8beee]">
                     Веб-версия
                 </a>
-                <a href="https://www.rustore.ru/catalog/app/com.meteosfera.pogoda" target="_blank" class="px-4 sm:px-5 py-2.5 rounded-full bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium transition-all duration-300 hover:scale-105 active:scale-95 flex items-center space-x-2 shadow-md shadow-purple-500/20">
+                <a href="https://www.rustore.ru/catalog/app/com.meteosfera.pogoda" target="_blank" class="px-5 py-2.5 rounded-full bg-[#ff8597] hover:bg-[#ff6f85] text-[#4a0013] text-sm font-bold transition-all duration-300 hover:scale-105 active:scale-95 flex items-center space-x-2 shadow-sm">
                     <img src="rustore-icon.png" alt="RuStore" class="w-4 h-4 object-contain">
                     <span>RuStore</span>
                 </a>
@@ -147,70 +185,75 @@
                 
                 <!-- Left Column: Info -->
                 <div class="lg:col-span-7 space-y-6 text-center lg:text-left" data-aos="fade-right" data-aos-duration="1000">
-                    <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-purple-100 border border-purple-200 text-purple-800 text-xs font-semibold uppercase tracking-wider">
+                    <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#e8d5f9] text-[#3b1d4a] text-xs font-bold uppercase tracking-wider">
                         <span class="animate-pulse">🔔</span>
                         <span>На Андроид &bull; Веб-версия для iPhone &bull; Все права защищены</span>
                     </div>
-                    <h1 class="text-3xl sm:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
-                        Погода нового поколения <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-fuchsia-600">в вашем кармане</span>
+                    <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-[#2b1138] leading-tight">
+                        Погода нового поколения <span class="text-[#8e24aa]">в вашем кармане</span>
                     </h1>
-                    <p class="text-slate-600 text-base sm:text-lg max-w-xl mx-auto lg:mx-0">
+                    <p class="text-[#4a3556] text-base sm:text-lg max-w-xl mx-auto lg:mx-0 font-medium">
                         МетеоСфера объединяет высокую точность прогнозов, футуристичный интерфейс с эффектом матового стекла и скорость работы. Доступно в RuStore для Android и в виде удобной веб-версии для любых устройств.
                     </p>
 
-                    <!-- Buttons Block -->
+                    <!-- Buttons Block (Android 14 Expressive Buttons) -->
                     <div class="flex flex-col gap-3 pt-2">
                         <div class="flex flex-col sm:flex-row items-center gap-3.5 w-full">
-                            <a href="https://www.rustore.ru/catalog/app/com.meteosfera.pogoda" target="_blank" class="w-full sm:w-1/2 px-5 py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-700 hover:to-fuchsia-700 text-white font-semibold shadow-lg shadow-purple-500/25 transition-all duration-300 hover:scale-105 active:scale-95 text-center text-sm flex items-center justify-center space-x-2">
+                            <a href="https://www.rustore.ru/catalog/app/com.meteosfera.pogoda" target="_blank" class="w-full sm:w-1/2 px-6 py-4 rounded-full m3-pink-accent font-bold transition-all duration-300 hover:scale-105 active:scale-95 text-center text-sm flex items-center justify-center space-x-2 shadow-md">
                                 <img src="rustore-icon.png" alt="RuStore" class="w-5 h-5 object-contain">
                                 <span>Приложение в RuStore</span>
                             </a>
-                            <a href="https://web.meteosfera.ru-message.ru" target="_blank" class="w-full sm:w-1/2 px-5 py-4 rounded-2xl bg-purple-50 hover:bg-purple-100 text-purple-900 font-semibold transition-all duration-300 hover:scale-105 active:scale-95 text-center border border-purple-200 text-sm">
+                            <a href="https://web.meteosfera.ru-message.ru" target="_blank" class="w-full sm:w-1/2 px-6 py-4 rounded-full bg-[#eee0f9] hover:bg-[#e4d2f3] text-[#2b1138] font-bold transition-all duration-300 hover:scale-105 active:scale-95 text-center border border-[#d8beee] text-sm">
                                 🌐 Веб-версия
                             </a>
                         </div>
                         
                         <!-- Telegram Channel Button -->
-                        <a href="https://t.me/meteosfera_app" target="_blank" class="w-full px-5 py-3.5 rounded-2xl bg-purple-50 hover:bg-purple-100 border border-purple-200/80 text-purple-800 font-semibold transition-all duration-300 hover:scale-[1.01] active:scale-95 text-center text-sm flex items-center justify-center space-x-2">
+                        <a href="https://t.me/meteosfera_app" target="_blank" class="w-full px-6 py-3.5 rounded-full bg-[#e8d5f9]/80 hover:bg-[#e2cbfa] border border-[#d8beee] text-[#2b1138] font-bold transition-all duration-300 hover:scale-[1.01] active:scale-95 text-center text-sm flex items-center justify-center space-x-2">
                             <img src="tg-icon.png" alt="Telegram" class="w-5 h-5 object-contain">
                             <span>Telegram-канал проекта</span>
                         </a>
 
                         <!-- DonationAlerts Button -->
-                        <a href="https://dalink.to/meteosferadonate" target="_blank" class="w-full px-5 py-3.5 rounded-2xl bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-900 font-semibold transition-all duration-300 hover:scale-[1.01] active:scale-95 text-center text-sm flex items-center justify-center space-x-2">
+                        <a href="https://dalink.to/meteosferadonate" target="_blank" class="w-full px-6 py-3.5 rounded-full bg-[#fde2e4] hover:bg-[#fcd0d5] border border-[#f7b5be] text-[#5c0d18] font-bold transition-all duration-300 hover:scale-[1.01] active:scale-95 text-center text-sm flex items-center justify-center space-x-2">
                             <span>☕</span>
                             <span>Поддержать проект (DonationAlerts)</span>
                         </a>
                     </div>
                 </div>
 
-                <!-- Right Column: Animated Weather Widget Preview -->
+                <!-- Right Column: Animated Weather Widget Preview (Android 14 Dynamic Dark Card) -->
                 <div class="lg:col-span-5 flex justify-center" data-aos="zoom-in" data-aos-duration="1000">
-                    <div class="w-full max-w-sm glass p-6 glow space-y-6 relative overflow-hidden rounded-[2.5rem] border border-purple-200">
+                    <div class="w-full max-w-sm m3-dark-container p-7 space-y-6 relative overflow-hidden rounded-[2.5rem] shadow-xl">
+                        <!-- Top Widget Header -->
                         <div class="flex justify-between items-start">
                             <div>
-                                <h2 class="text-2xl font-bold text-slate-900">Москва</h2>
-                                <p class="text-slate-500 text-sm">Сегодня, 23 сентября</p>
+                                <h2 class="text-2xl font-black text-white">Москва</h2>
+                                <p class="text-[#d8beee] text-sm font-medium">Сегодня, 23 сентября</p>
                             </div>
-                            <span class="text-3xl animate-pulse">⛅</span>
+                            <!-- Scalloped Badge Android 14 Easter Egg Icon -->
+                            <div class="w-12 h-12 bg-[#ff8597] m3-scallop-badge flex items-center justify-center text-2xl shadow-sm">
+                                ⛅
+                            </div>
                         </div>
                         
-                        <div class="py-4 flex items-baseline space-x-2">
-                            <span class="text-6xl font-black text-slate-900">+18°</span>
-                            <span class="text-purple-600 font-semibold">Малооблачно</span>
+                        <!-- Temperature Display -->
+                        <div class="py-2 flex items-baseline space-x-3">
+                            <span class="text-6xl font-black text-[#e8d5f9] tracking-tight">+18°</span>
+                            <span class="text-[#ff8597] font-bold text-lg">Малооблачно</span>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-3 pt-2">
-                            <div class="bg-white/80 rounded-2xl p-3.5 border border-purple-100 shadow-sm">
-                                <span class="text-slate-500 text-xs block">Влажность</span>
-                                <span class="text-lg font-bold text-slate-900">64%</span>
+                        <!-- Stat Boxes -->
+                        <div class="grid grid-cols-2 gap-3.5 pt-2">
+                            <div class="bg-[#3b1d4a] rounded-3xl p-4 border border-[#4d2960]">
+                                <span class="text-[#cbb3e0] text-xs block font-medium">Влажность</span>
+                                <span class="text-xl font-extrabold text-white">64%</span>
                             </div>
-                            <div class="bg-white/80 rounded-2xl p-3.5 border border-purple-100 shadow-sm">
-                                <span class="text-slate-500 text-xs block">Ветер</span>
-                                <span class="text-lg font-bold text-slate-900">4.2 м/с</span>
+                            <div class="bg-[#3b1d4a] rounded-3xl p-4 border border-[#4d2960]">
+                                <span class="text-[#cbb3e0] text-xs block font-medium">Ветер</span>
+                                <span class="text-xl font-extrabold text-white">4.2 м/с</span>
                             </div>
                         </div>
-                        <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-purple-400/15 rounded-full blur-2xl"></div>
                     </div>
                 </div>
 
@@ -219,46 +262,46 @@
             <!-- SECTION: Как установить (С телефонами по бокам) -->
             <div class="space-y-12">
                 <div class="text-center space-y-3" data-aos="fade-up" data-aos-duration="800">
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Как установить МетеоСферу?</h2>
-                    <p class="text-slate-600 max-w-xl mx-auto text-sm sm:text-base">Выберите вашу мобильную платформу и начните пользоваться приложением за пару секунд.</p>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-[#2b1138]">Как установить МетеоСферу?</h2>
+                    <p class="text-[#594168] max-w-xl mx-auto text-sm sm:text-base font-medium">Выберите вашу мобильную платформу и начните пользоваться приложением за пару секунд.</p>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                     
                     <!-- Левый блок: iPhone (iOS) -->
-                    <div class="glass p-6 sm:p-8 space-y-6 flex flex-col sm:flex-row items-center gap-6" data-aos="fade-right" data-aos-duration="900">
+                    <div class="m3-surface-container p-6 sm:p-8 space-y-6 flex flex-col sm:flex-row items-center gap-6 border border-[#d8beee]" data-aos="fade-right" data-aos-duration="900">
                         <!-- Телефон-мокап iOS -->
                         <div class="w-40 sm:w-48 phone-frame p-3 space-y-3">
-                            <div class="flex justify-between items-center text-[10px] text-slate-400 px-1">
+                            <div class="flex justify-between items-center text-[10px] text-[#594168] px-1 font-bold">
                                 <span>9:41</span>
-                                <div class="w-3 h-3 rounded-full bg-purple-300"></div>
+                                <div class="w-3 h-3 rounded-full bg-[#8e24aa]"></div>
                             </div>
-                            <div class="bg-white rounded-2xl p-3 border border-purple-100 text-center space-y-2 shadow-sm">
-                                <div class="w-10 h-10 mx-auto rounded-xl overflow-hidden bg-purple-50 border border-purple-200 flex items-center justify-center">
+                            <div class="bg-white rounded-2xl p-3 border border-[#d8beee] text-center space-y-2 shadow-sm">
+                                <div class="w-10 h-10 mx-auto rounded-xl overflow-hidden bg-[#f3e0ff] border border-[#d8beee] flex items-center justify-center">
                                     <img src="logo.png" alt="Icon" class="w-full h-full object-cover">
                                 </div>
-                                <span class="text-xs font-bold text-slate-900 block">МетеоСфера</span>
-                                <span class="text-[9px] text-purple-700 bg-purple-100 px-2.5 py-0.5 rounded-full inline-block font-medium">Веб-приложение</span>
+                                <span class="text-xs font-bold text-[#2b1138] block">МетеоСфера</span>
+                                <span class="text-[9px] text-[#2b1138] bg-[#e8d5f9] px-2.5 py-0.5 rounded-full inline-block font-bold">Веб-приложение</span>
                             </div>
-                            <div class="text-center text-[10px] text-slate-600 py-1.5 bg-purple-50/80 rounded-xl border border-purple-100">
+                            <div class="text-center text-[10px] text-[#2b1138] py-1.5 bg-[#e8d5f9] rounded-xl font-bold">
                                 ⬆ Нажмите «Поделиться»
                             </div>
                         </div>
 
                         <!-- Описание установки на iOS -->
                         <div class="space-y-4 text-center sm:text-left">
-                            <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-purple-100 border border-purple-200 text-purple-800 text-xs font-semibold">
+                            <div class="inline-flex items-center space-x-2 px-4 py-1 rounded-full bg-[#e8d5f9] text-[#2b1138] text-xs font-bold">
                                 <span>🍏</span>
                                 <span>Для владельцев iPhone и iPad</span>
                             </div>
-                            <h3 class="text-2xl font-bold text-slate-900">Установка на iOS</h3>
-                            <ol class="text-slate-600 text-sm space-y-2 text-left list-decimal list-inside">
-                                <li>Откройте веб-версию в браузере <b class="text-purple-700">Safari</b>.</li>
-                                <li>Нажмите кнопку <b class="text-slate-900">«Поделиться»</b> внизу панели управления.</li>
-                                <li>Выберите пункт <b class="text-slate-900">«На экран «Домой»»</b>.</li>
+                            <h3 class="text-2xl font-bold text-[#2b1138]">Установка на iOS</h3>
+                            <ol class="text-[#4a3556] text-sm space-y-2 text-left list-decimal list-inside font-medium">
+                                <li>Откройте веб-версию в браузере <b class="text-[#8e24aa]">Safari</b>.</li>
+                                <li>Нажмите кнопку <b class="text-[#2b1138]">«Поделиться»</b> внизу панели управления.</li>
+                                <li>Выберите пункт <b class="text-[#2b1138]">«На экран «Домой»»</b>.</li>
                             </ol>
                             <div class="pt-2">
-                                <a href="https://web.meteosfera.ru-message.ru" target="_blank" class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-full bg-purple-100 hover:bg-purple-200 text-purple-900 font-semibold text-xs transition">
+                                <a href="https://web.meteosfera.ru-message.ru" target="_blank" class="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-[#e8d5f9] hover:bg-[#debeec] text-[#2b1138] font-bold text-xs transition">
                                     <span>Открыть веб-версию</span>
                                     <span>&rarr;</span>
                                 </a>
@@ -267,39 +310,39 @@
                     </div>
 
                     <!-- Правый блок: Android (RuStore) -->
-                    <div class="glass p-6 sm:p-8 space-y-6 flex flex-col sm:flex-row items-center gap-6" data-aos="fade-left" data-aos-duration="900">
+                    <div class="m3-surface-container p-6 sm:p-8 space-y-6 flex flex-col sm:flex-row items-center gap-6 border border-[#d8beee]" data-aos="fade-left" data-aos-duration="900">
                         <!-- Телефон-мокап Android -->
                         <div class="w-40 sm:w-48 phone-frame p-3 space-y-3">
-                            <div class="flex justify-between items-center text-[10px] text-slate-400 px-1">
+                            <div class="flex justify-between items-center text-[10px] text-[#594168] px-1 font-bold">
                                 <span>12:00</span>
-                                <div class="w-2.5 h-2.5 rounded-full bg-fuchsia-400"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-[#ff8597]"></div>
                             </div>
-                            <div class="bg-white rounded-2xl p-3 border border-purple-100 text-center space-y-2 shadow-sm">
-                                <div class="w-10 h-10 mx-auto rounded-xl overflow-hidden bg-purple-50 border border-purple-200 flex items-center justify-center">
+                            <div class="bg-white rounded-2xl p-3 border border-[#d8beee] text-center space-y-2 shadow-sm">
+                                <div class="w-10 h-10 mx-auto rounded-xl overflow-hidden bg-[#f3e0ff] border border-[#d8beee] flex items-center justify-center">
                                     <img src="rustore-icon.png" alt="RuStore" class="w-6 h-6 object-contain">
                                 </div>
-                                <span class="text-xs font-bold text-slate-900 block">В RuStore</span>
-                                <span class="text-[9px] text-purple-700 bg-purple-100 px-2.5 py-0.5 rounded-full inline-block font-medium">Официально</span>
+                                <span class="text-xs font-bold text-[#2b1138] block">В RuStore</span>
+                                <span class="text-[9px] text-[#2b1138] bg-[#e8d5f9] px-2.5 py-0.5 rounded-full inline-block font-bold">Официально</span>
                             </div>
-                            <div class="text-center text-[10px] text-white py-1.5 bg-gradient-to-r from-purple-600 to-fuchsia-600 rounded-xl font-medium shadow">
+                            <div class="text-center text-[10px] text-[#4a0013] py-1.5 bg-[#ff8597] rounded-xl font-bold shadow-sm">
                                 Установить
                             </div>
                         </div>
 
                         <!-- Описание установки на Android -->
                         <div class="space-y-4 text-center sm:text-left">
-                            <div class="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-fuchsia-100 border border-fuchsia-200 text-fuchsia-800 text-xs font-semibold">
+                            <div class="inline-flex items-center space-x-2 px-4 py-1 rounded-full bg-[#fde2e4] text-[#5c0d18] text-xs font-bold">
                                 <span>🤖</span>
                                 <span>Для пользователей Android</span>
                             </div>
-                            <h3 class="text-2xl font-bold text-slate-900">Установка из RuStore</h3>
-                            <ul class="text-slate-600 text-sm space-y-2 text-left list-disc list-inside">
-                                <li>Перейдите по официальной ссылке в магазин <b class="text-purple-700">RuStore</b>.</li>
-                                <li>Нажмите кнопку <b class="text-slate-900">«Установить»</b>.</li>
+                            <h3 class="text-2xl font-bold text-[#2b1138]">Установка из RuStore</h3>
+                            <ul class="text-[#4a3556] text-sm space-y-2 text-left list-disc list-inside font-medium">
+                                <li>Перейдите по официальной ссылке в магазин <b class="text-[#8e24aa]">RuStore</b>.</li>
+                                <li>Нажмите кнопку <b class="text-[#2b1138]">«Установить»</b>.</li>
                                 <li>Пользуйтесь быстрым нативным приложением на вашем смартфоне!</li>
                             </ul>
                             <div class="pt-2">
-                                <a href="https://www.rustore.ru/catalog/app/com.meteosfera.pogoda" target="_blank" class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-600 hover:from-purple-700 hover:to-fuchsia-700 text-white font-semibold text-xs transition shadow-md shadow-purple-500/20">
+                                <a href="https://www.rustore.ru/catalog/app/com.meteosfera.pogoda" target="_blank" class="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full m3-pink-accent font-bold text-xs transition shadow-sm">
                                     <img src="rustore-icon.png" alt="RuStore" class="w-3.5 h-3.5 object-contain">
                                     <span>Скачать из RuStore</span>
                                 </a>
@@ -313,31 +356,31 @@
             <!-- SECTION: Фишки приложения (Плавное раздвижение при скролле) -->
             <div class="space-y-12">
                 <div class="text-center space-y-3" data-aos="fade-up" data-aos-duration="800">
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Преимущества МетеоСферы</h2>
-                    <p class="text-slate-600 max-w-lg mx-auto text-sm sm:text-base">Узнайте почему мы лучшие!</p>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-[#2b1138]">Преимущества МетеоСферы</h2>
+                    <p class="text-[#594168] max-w-lg mx-auto text-sm sm:text-base font-medium">Узнайте почему мы лучшие!</p>
                 </div>
 
-                <!-- Контейнер с карточками для скролл-эффекта -->
+                <!-- Контейнер с карточками для скролл-эффекта (M3 Tonal Container style) -->
                 <div id="spread-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <!-- Карточка 1 (едет влево) -->
-                    <div class="spread-card glass p-6 space-y-4 transition hover:border-purple-300">
-                        <div class="w-12 h-12 rounded-2xl bg-purple-100 flex items-center justify-center text-2xl text-purple-700 border border-purple-200">⚡</div>
-                        <h3 class="text-xl font-bold text-slate-900">Мгновенный отклик</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed">Приложение работает невероятно быстро благодаря оптимизированному интерфейсу и легковесной архитектуре.</p>
+                    <div class="spread-card m3-surface-container p-7 space-y-4 border border-[#d8beee]">
+                        <div class="w-14 h-14 rounded-full bg-[#ff8597] m3-scallop-badge flex items-center justify-center text-2xl text-[#4a0013]">⚡</div>
+                        <h3 class="text-xl font-extrabold text-[#2b1138]">Мгновенный отклик</h3>
+                        <p class="text-[#4a3556] text-sm leading-relaxed font-medium">Приложение работает невероятно быстро благодаря оптимизированному интерфейсу и легковесной архитектуре.</p>
                     </div>
 
                     <!-- Карточка 2 (остается по центру) -->
-                    <div class="spread-card glass p-6 space-y-4 transition hover:border-purple-300">
-                        <div class="w-12 h-12 rounded-2xl bg-fuchsia-100 flex items-center justify-center text-2xl text-fuchsia-700 border border-fuchsia-200">💎</div>
-                        <h3 class="text-xl font-bold text-slate-900">Стиль Glassmorphism</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed">Эффект матового стекла, глубокие сине-черные темные тона и неоновые акценты радуют глаз.</p>
+                    <div class="spread-card m3-surface-container p-7 space-y-4 border border-[#d8beee]">
+                        <div class="w-14 h-14 rounded-full bg-[#e8d5f9] m3-scallop-badge flex items-center justify-center text-2xl text-[#2b1138]">💎</div>
+                        <h3 class="text-xl font-extrabold text-[#2b1138]">Стиль Glassmorphism</h3>
+                        <p class="text-[#4a3556] text-sm leading-relaxed font-medium">Эффект матового стекла, глубокие сине-черные темные тона и неоновые акценты радуют глаз.</p>
                     </div>
 
                     <!-- Карточка 3 (едет вправо) -->
-                    <div class="spread-card glass p-6 space-y-4 transition hover:border-purple-300">
-                        <div class="w-12 h-12 rounded-2xl bg-violet-100 flex items-center justify-center text-2xl text-violet-700 border border-violet-200">🎯</div>
-                        <h3 class="text-xl font-bold text-slate-900">Точные данные</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed">Актуальные сводки погоды, осадки, направление ветра и атмосферное давление в реальном времени.</p>
+                    <div class="spread-card m3-surface-container p-7 space-y-4 border border-[#d8beee]">
+                        <div class="w-14 h-14 rounded-full bg-[#fde2e4] m3-scallop-badge flex items-center justify-center text-2xl text-[#5c0d18]">🎯</div>
+                        <h3 class="text-xl font-extrabold text-[#2b1138]">Точные данные</h3>
+                        <p class="text-[#4a3556] text-sm leading-relaxed font-medium">Актуальные сводки погоды, осадки, направление ветра и атмосферное давление в реальном времени.</p>
                     </div>
                 </div>
             </div>
@@ -345,35 +388,32 @@
             <!-- SECTION: Создатель / Разработчик -->
             <div class="space-y-12">
                 <div class="text-center space-y-3" data-aos="fade-up" data-aos-duration="800">
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Создатель проекта</h2>
-                    <p class="text-slate-600 max-w-lg mx-auto text-sm sm:text-base">Автор идеи, архитектуры и разработки МетеоСферы.</p>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-[#2b1138]">Создатель проекта</h2>
+                    <p class="text-[#594168] max-w-lg mx-auto text-sm sm:text-base font-medium">Автор идеи, архитектуры и разработки МетеоСферы.</p>
                 </div>
 
                 <div class="max-w-xl mx-auto px-2" data-aos="flip-up" data-aos-duration="1000">
-                    <div class="glass p-6 sm:p-8 glow relative overflow-hidden text-center space-y-6 transition hover:border-purple-300 duration-300 rounded-[2.5rem] border border-purple-200">
-                        <!-- Decorative glow inside card -->
-                        <div class="absolute -top-16 -left-16 w-48 h-48 bg-purple-300/20 rounded-full blur-3xl pointer-events-none"></div>
-
+                    <div class="m3-dark-container p-7 sm:p-9 relative overflow-hidden text-center space-y-6 rounded-[2.5rem] shadow-xl">
                         <!-- Avatar Image (osnovatel.png) -->
-                        <div class="w-24 h-24 mx-auto rounded-3xl overflow-hidden bg-purple-50 border border-purple-200 shadow-md flex items-center justify-center">
+                        <div class="w-24 h-24 mx-auto rounded-3xl overflow-hidden bg-[#3b1d4a] border-2 border-[#5c2f73] shadow-md flex items-center justify-center">
                             <img src="osnovatel.png" alt="Lilmopss" class="w-full h-full object-cover">
                         </div>
 
                         <div class="space-y-2">
-                            <h3 class="text-2xl font-bold text-slate-900">Lilmopss</h3>
+                            <h3 class="text-2xl font-black text-white">Lilmopss</h3>
                             <div class="flex flex-wrap justify-center gap-2 pt-1">
-                                <span class="px-3.5 py-1 rounded-full bg-purple-100 border border-purple-200 text-purple-800 text-xs font-semibold">CEO</span>
-                                <span class="px-3.5 py-1 rounded-full bg-fuchsia-100 border border-fuchsia-200 text-fuchsia-800 text-xs font-semibold">Основатель</span>
-                                <span class="px-3.5 py-1 rounded-full bg-violet-100 border border-violet-200 text-violet-800 text-xs font-semibold">Lead Developer</span>
+                                <span class="px-4 py-1 rounded-full bg-[#ff8597] text-[#4a0013] text-xs font-bold">CEO</span>
+                                <span class="px-4 py-1 rounded-full bg-[#3b1d4a] border border-[#5c2f73] text-[#e8d5f9] text-xs font-bold">Основатель</span>
+                                <span class="px-4 py-1 rounded-full bg-[#3b1d4a] border border-[#5c2f73] text-[#e8d5f9] text-xs font-bold">Lead Developer</span>
                             </div>
                         </div>
 
-                        <p class="text-slate-600 text-sm leading-relaxed max-w-md mx-auto">
+                        <p class="text-[#d8beee] text-sm leading-relaxed max-w-md mx-auto font-medium">
                             Разработчик полного цикла. Создание интерфейсов, логики приложений, веб-версии и экосистемы МетеоСферы.
                         </p>
 
                         <div class="pt-2">
-                            <a href="https://t.me/lilmopss" target="_blank" class="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-2xl bg-purple-100 hover:bg-purple-200 border border-purple-300 text-purple-900 font-semibold transition-all duration-300 hover:scale-105 active:scale-95 text-sm shadow-sm">
+                            <a href="https://t.me/lilmopss" target="_blank" class="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-full bg-[#ff8597] hover:bg-[#ff6f85] text-[#4a0013] font-bold transition-all duration-300 hover:scale-105 active:scale-95 text-sm shadow-md">
                                 <img src="tg-icon.png" alt="Telegram" class="w-4 h-4 object-contain">
                                 <span>Связаться в Telegram (@lilmopss)</span>
                             </a>
@@ -385,14 +425,14 @@
         </main>
 
         <!-- Footer -->
-        <footer data-aos="fade-in" data-aos-duration="800" class="max-w-6xl mx-auto w-full px-4 sm:px-6 py-6 border-t border-purple-100 text-center text-slate-500 text-xs space-y-1.5">
+        <footer data-aos="fade-in" data-aos-duration="800" class="max-w-6xl mx-auto w-full px-4 sm:px-6 py-6 border-t border-[#d8beee] text-center text-[#594168] text-xs space-y-1.5 font-medium">
             <p>&copy; 2026 МетеоСфера (com.meteosfera.pogoda). Все права защищены.</p>
             <div class="flex justify-center space-x-4 pt-1">
-                <a href="https://t.me/meteosfera_app" target="_blank" class="text-purple-700 hover:underline transition-colors flex items-center space-x-1">
+                <a href="https://t.me/meteosfera_app" target="_blank" class="text-[#8e24aa] hover:underline transition-colors flex items-center space-x-1 font-bold">
                     <span>Telegram</span>
                 </a>
                 <span>&bull;</span>
-                <a href="https://dalink.to/meteosferadonate" target="_blank" class="text-amber-700 hover:underline transition-colors">Поддержать автора</a>
+                <a href="https://dalink.to/meteosferadonate" target="_blank" class="text-[#5c0d18] hover:underline transition-colors font-bold">Поддержать автора</a>
             </div>
         </footer>
 
